@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -10,24 +10,36 @@
 </head>
 
 <body>
-    <div id="canvas"></div>
-    <script>
-        // let canvas = document.getElementById('canvas')
-        canvas.onmousemove = (e) => {
-            // console.log(e)
-            let div = document.createElement('div')
-            div.style.position = 'absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px' 
-            div.style.height = '6px'
-            div.style.width = '6px'
-            canvas.appendChild(div)
-            div.style.marginLeft = '-3px'
-            div.style.marginTop = '-3px'
-            div.style.borderRadius = '6px'
-            div.style.background = 'black'
-        } 
-    </script>
+    <canvas id="canvas" width="100" height="100"></div>
+        <script>
+            let canvas = document.getElementById("canvas");
+            canvas.width = document.documentElement.clientWidth
+            canvas.height = document.documentElement.clientHeight
+
+            var ctx = canvas.getContext("2d");
+
+            ctx.fillStyle = "black"
+            ctx.strokeStyle = "none"
+            
+            let painting = false
+
+            canvas.onmousedown = () => {
+                painting = true
+            }
+
+            canvas.onmouseup =() => {
+                painting = false
+            }
+
+            canvas.onmousemove = (e) => {
+                if(painting ===true) {
+                    ctx.beginPath();
+                    ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI)
+                    ctx.fill();
+                }
+                
+            }
+        </script>
 </body>
 
 </html>
